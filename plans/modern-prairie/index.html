@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modern Prairie Residence | Omni Design and Build</title>
+
+<style>
+  /* Layout: brand bar, then one column: title, film, spec strip, product sections. Single theme by choice. */
+  :root {
+    color-scheme: dark;
+    --bg: #0a0b0d; --panel: #14161a; --ink: #f2f4f6; --ink-soft: #c7ccd2; --rule: #2a2e35;
+    --accent: #5bc8e8; --accent-ink: #5bc8e8; --bar: #0a0b0d; --bar-ink: #8a9099; --bar-rule: #2a2e35;
+    --cta-bg: #5bc8e8; --cta-ink: #0a0b0d; --cta-hover: #8fdbee;
+    --disc: #5bc8e8; --disc-ink: #0a0b0d; --radius: 2px;
+    --display: "Trebuchet MS", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --h1-size: clamp(34px, 5.6vw, 60px); --h1-weight: 700; --h2-size: clamp(24px, 3.2vw, 32px); --h2-weight: 700;
+    --num-size: 26px; --num-weight: 700;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; height: auto; display: block; }
+  .bar { background: var(--bar); border-bottom: 1px solid var(--bar-rule); }
+  .bar-in, .wrap, .foot-in { max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .bar-in { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+  .brand img { height: 44px; width: auto; }
+  .by { display: inline-flex; align-items: center; gap: 10px; color: var(--bar-ink); text-decoration: none; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; }
+  .by img { width: 46px; height: 46px; flex: none; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .wrap { padding-top: 44px; padding-bottom: 64px; display: flex; flex-direction: column; gap: 52px; }
+  .eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-ink); margin: 0; }
+  h1, h2, h3 { font-family: var(--display); margin: 0; text-wrap: balance; }
+  h1 { font-size: var(--h1-size); font-weight: var(--h1-weight); line-height: 1.04; letter-spacing: -0.01em; }
+  h2 { font-size: var(--h2-size); font-weight: var(--h2-weight); line-height: 1.12; letter-spacing: -0.01em; }
+  h3 { font-family: var(--body); font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+  p { margin: 0; max-width: 66ch; }
+  .soft { color: var(--ink-soft); }
+  .head { display: flex; flex-direction: column; gap: 12px; }
+  .lede { font-size: 17px; color: var(--ink-soft); max-width: 60ch; }
+  .top { display: flex; flex-direction: column; gap: 28px; }
+  .film { position: relative; aspect-ratio: 1284 / 716; background: #111; overflow: hidden; border: 1px solid var(--rule); border-radius: var(--radius); box-shadow: 0 24px 48px -28px rgba(0,0,0,0.6); }
+  .film video { width: 100%; height: 100%; display: block; object-fit: cover; background: #111; }
+  .play { position: absolute; inset: 0; display: grid; place-items: center; border: 0; padding: 0; margin: 0; background: linear-gradient(180deg, rgba(20,18,16,0) 55%, rgba(20,18,16,0.28) 100%); cursor: pointer; color: #fff; }
+  .play .disc { width: clamp(64px, 9vw, 92px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: var(--disc); color: var(--disc-ink); box-shadow: 0 10px 30px rgba(0,0,0,0.35); transition: transform 0.25s ease; }
+  .play:hover .disc { transform: scale(1.06); }
+  .play:focus-visible { outline-offset: -4px; }
+  .play svg { width: 34%; height: 34%; margin-left: 6%; }
+  .play .len { position: absolute; right: 18px; top: 16px; font-size: 12px; letter-spacing: 0.14em; font-variant-numeric: tabular-nums; background: rgba(10,11,13,0.65); padding: 5px 10px; }
+  .film.playing .play { display: none; }
+  .specs { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 0; }
+  .specs div { padding: 18px 16px 16px; border-left: 1px solid var(--rule); }
+  .specs div:first-child { border-left: 0; padding-left: 0; }
+  dt { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+  dd { margin: 0; }
+  .specs dd { margin-top: 4px; font-family: var(--display); font-size: var(--num-size); font-weight: var(--num-weight); line-height: 1.1; }
+  .sec { display: flex; flex-direction: column; gap: 18px; }
+  .sec > .copy, .copy { display: flex; flex-direction: column; gap: 14px; }
+  .note { font-size: 14px; color: var(--ink-soft); border-left: 2px solid var(--accent); padding-left: 14px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 48px; align-items: start; }
+  .feat { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
+  .feat li { padding: 12px 0 12px 20px; border-bottom: 1px solid var(--rule); position: relative; }
+  .feat li::before { content: ""; position: absolute; left: 0; top: 22px; width: 8px; height: 2px; background: var(--accent); }
+  .table { margin: 0; display: grid; grid-template-columns: 1fr; }
+  .table div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--rule); }
+  .table dt { font-size: 12px; letter-spacing: 0.12em; }
+  .table dd { font-variant-numeric: tabular-nums; text-align: right; }
+  .table .total dt, .table .total dd { color: var(--ink); font-weight: 700; }
+  figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  figure img { width: 100%; border: 1px solid var(--rule); border-radius: var(--radius); }
+  figcaption { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+  .plan img { background: #ececec; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px 20px; }
+  .grid3 img { aspect-ratio: 4 / 3; object-fit: cover; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px 16px; }
+  .grid4 img { aspect-ratio: 3 / 1; object-fit: cover; background: #0c0d10; }
+  .rooms ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 28px; }
+  .rooms button { width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 12px 0; background: none; border: 0; border-bottom: 1px solid var(--rule); font: inherit; color: var(--ink); text-align: left; cursor: pointer; }
+  .rooms button:hover, .rooms button.on { color: var(--accent-ink); }
+  .rooms .t { font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .cta { background: var(--panel); border: 1px solid var(--rule); border-radius: var(--radius); padding: 36px 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px 40px; flex-wrap: wrap; }
+  .cta .copy { flex: 1 1 320px; gap: 10px; }
+  .btn { display: inline-flex; align-items: center; padding: 15px 22px; background: var(--cta-bg); color: var(--cta-ink); font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-radius: var(--radius); transition: background 0.2s ease; white-space: nowrap; }
+  .btn:hover { background: var(--cta-hover); }
+  footer { border-top: 1px solid var(--rule); }
+  .foot-in { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px 24px; padding-top: 20px; padding-bottom: 28px; font-size: 12px; letter-spacing: 0.06em; color: var(--ink-soft); }
+  footer .by { color: var(--ink-soft); }
+  @media (max-width: 820px) {
+    .two { grid-template-columns: 1fr; }
+    .grid4 { grid-template-columns: repeat(2, 1fr); }
+    .grid3 { grid-template-columns: repeat(2, 1fr); }
+    .rooms ol { grid-template-columns: repeat(2, 1fr); }
+    .specs { grid-template-columns: repeat(2, 1fr); }
+    .specs div:nth-child(3) { border-left: 0; padding-left: 0; }
+    .specs div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+    .feat { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 460px) {
+    .bar-in, .wrap, .foot-in { padding-left: 16px; padding-right: 16px; }
+    .wrap { padding-top: 28px; gap: 40px; }
+    .rooms ol, .grid3 { grid-template-columns: 1fr; }
+    .brand img { height: 34px; }
+    .by span { display: none; }
+    .cta { padding: 26px 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(60% 55% at 12% 0%, rgba(91,200,232,0.16), transparent 70%),
+      radial-gradient(50% 50% at 95% 12%, rgba(42,143,176,0.14), transparent 72%),
+      radial-gradient(70% 60% at 60% 105%, rgba(91,200,232,0.08), transparent 70%),
+      linear-gradient(180deg, #0d1014 0%, #0a0b0d 55%, #08090b 100%); }
+  .bar { background: rgba(10,11,13,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+  .cta { background: linear-gradient(135deg, rgba(91,200,232,0.10), rgba(20,22,26,0.9) 55%); }
+</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <a class="brand" href="../../index.html" aria-label="Omni Design and Build"><img src="omni-logo.png" width="720" height="169" alt="Omni Design + Build"></a>
+  <a class="by" href="https://www.lpa360.com/"><span>Brought to you by</span><img src="lpa360-logo.png" width="46" height="46" alt="LPA360: Digital, AI, Channel"></a>
+</div></header>
+<main class="wrap">
+  <div class="top">
+    <section class="head">
+      <p class="eyebrow">Home plan</p>
+      <h1>Modern Prairie Residence</h1>
+      <p class="lede">1,800 square feet of living space with three bedrooms, two baths and a one-car garage. Watch the walkthrough, then see how the two-story option lays out.</p>
+    </section>
+    <div class="film" id="film">
+      <video id="tour" poster="poster.jpg" preload="metadata" playsinline><source src="tour.mp4" type="video/mp4"></video>
+      <button class="play" id="play" type="button" aria-label="Play the Modern Prairie Residence film, 1 minute 8 seconds">
+        <span class="disc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l16 9-16 9z" fill="currentColor"/></svg></span>
+        <span class="len">1:08</span>
+      </button>
+    </div>
+    <dl class="specs">
+      <div><dt>Living area</dt><dd>1,800 sq ft</dd></div>
+      <div><dt>Bedrooms</dt><dd>3</dd></div>
+      <div><dt>Baths</dt><dd>2</dd></div>
+      <div><dt>Garage</dt><dd>1 car</dd></div>
+    </dl>
+  </div>
+    <section class="sec">
+    <p class="eyebrow">The plan</p>
+    <h2>The two-story option</h2>
+    <div class="copy">
+      <p>This version of the Modern Prairie Residence keeps the same 1,800 square feet of living space and stacks it on two floors. The main floor is open from the kitchen through the dining area to a great room with a 20-foot ceiling. The primary suite stays downstairs, with its own bath and walk-in closet.</p>
+      <p>Upstairs you get two more bedrooms, a full bath and a loft that looks down into the great room. A covered balcony off the second floor sits above the covered patio, so there is outdoor living on both levels.</p>
+      <p class="note">The film above walks the single-story layout. Everything described below is the two-story option.</p>
+    </div>
+  </section>
+  <section class="sec"><figure class=""><img src="img/exterior.jpg" alt="Rendering of the two-story Modern Prairie Residence at dusk, with stone, stucco and wood siding and a one-car garage"><figcaption>Front exterior, two-story option</figcaption></figure></section>
+  <section class="sec"><p class="eyebrow">What you get</p><h2>Features</h2><ul class="feat"><li>Modern two-story, open-concept design</li><li>Great room with a 20-foot ceiling</li><li>Chef's kitchen with a large island</li><li>Walk-in pantry</li><li>Private primary suite on the main floor, with a spa-style bath and walk-in closet</li><li>Upstairs: two bedrooms, one bath and a loft</li><li>Covered outdoor living balcony</li><li>Laundry room</li><li>One-car garage with storage space</li></ul></section>
+  <section class="sec">
+    <p class="eyebrow">Main level</p>
+    <h2>First floor</h2>
+    <div class="two">
+      <figure class="plan"><img src="img/plan-first.jpg" alt="First floor plan showing the great room, kitchen, dining area, primary suite, laundry, garage and covered patio"><figcaption>First floor plan</figcaption></figure>
+      <div class="copy">
+        <p>You come in through a covered porch to an 8 by 8 foyer. From there the house opens up: the kitchen and its island, the dining area beyond it, and a great room that runs 26 feet deep under a 20-foot ceiling. The walk-in pantry sits right off the kitchen, and the covered patio is at the back of the house next to the dining area.</p>
+        <p>The primary suite takes the other side of the main floor. The bedroom is 14 by 18, the bath has a soaking tub and a separate shower, and the walk-in closet is 10 by 8. The laundry room is a few steps from the suite.</p>
+        <dl class="table"><div><dt>Great room</dt><dd>18' x 26'</dd></div><div><dt>Kitchen</dt><dd>12' x 16'</dd></div><div><dt>Dining area</dt><dd>12' x 13'</dd></div><div><dt>Pantry</dt><dd>6' x 6'</dd></div><div><dt>Foyer</dt><dd>8' x 8'</dd></div><div><dt>Primary bedroom</dt><dd>14' x 18'</dd></div><div><dt>Primary bath</dt><dd>10' x 10'</dd></div><div><dt>Walk-in closet</dt><dd>10' x 8'</dd></div><div><dt>Laundry</dt><dd>8' x 7'</dd></div></dl>
+      </div>
+    </div>
+  </section>
+  <section class="sec">
+    <p class="eyebrow">Upper level</p>
+    <h2>Second floor</h2>
+    <div class="two">
+      <figure class="plan"><img src="img/plan-second.jpg" alt="Second floor plan showing the loft, two bedrooms, a bath and the covered balcony"><figcaption>Second floor plan</figcaption></figure>
+      <div class="copy">
+        <p>The stairs land at an 18 by 12 loft that overlooks the great room. There is a bedroom on each side of the loft, each with its own closet, and a full bath between them.</p>
+        <p>The covered balcony is 18 by 10 and gives the upstairs its own place to sit outside. The rest of the second floor is left open to the great room below, which is where the 20-foot ceiling comes from.</p>
+        <dl class="table"><div><dt>Loft</dt><dd>18' x 12'</dd></div><div><dt>Bedroom 2</dt><dd>12'-6" x 13'</dd></div><div><dt>Bedroom 3</dt><dd>12'-4" x 13'</dd></div><div><dt>Bath 2</dt><dd>9' x 6'</dd></div><div><dt>Covered balcony</dt><dd>18' x 10'</dd></div></dl>
+      </div>
+    </div>
+  </section>
+  <section class="sec"><p class="eyebrow">Inside</p><h2>Interior renderings</h2><p class="soft">Concept renderings of the main rooms. Finishes and fixtures are chosen with you during design.</p><div class="grid3"><figure class=""><img src="img/great-room.jpg" alt="Rendering of the great room"><figcaption>Great room</figcaption></figure><figure class=""><img src="img/kitchen.jpg" alt="Rendering of the kitchen"><figcaption>Kitchen</figcaption></figure><figure class=""><img src="img/primary-bedroom.jpg" alt="Rendering of the primary bedroom"><figcaption>Primary bedroom</figcaption></figure><figure class=""><img src="img/primary-bath.jpg" alt="Rendering of the primary bath"><figcaption>Primary bath</figcaption></figure><figure class=""><img src="img/loft.jpg" alt="Rendering of the upstairs loft"><figcaption>Upstairs loft</figcaption></figure><figure class=""><img src="img/balcony.jpg" alt="Rendering of the covered balcony"><figcaption>Covered balcony</figcaption></figure></div></section>
+  <section class="sec"><p class="eyebrow">Outside</p><h2>Elevations</h2><div class="grid4"><figure class=""><img src="img/elev-front.jpg" alt="Front elevation of the two-story option"><figcaption>Front elevation</figcaption></figure><figure class=""><img src="img/elev-rear.jpg" alt="Rear elevation of the two-story option"><figcaption>Rear elevation</figcaption></figure><figure class=""><img src="img/elev-left.jpg" alt="Left elevation of the two-story option"><figcaption>Left elevation</figcaption></figure><figure class=""><img src="img/elev-right.jpg" alt="Right elevation of the two-story option"><figcaption>Right elevation</figcaption></figure></div></section>
+  <section class="sec"><p class="eyebrow">By the numbers</p><h2>Specifications</h2><div class="two"><div class="copy"><h3>Areas</h3><dl class="table"><div><dt>Living area</dt><dd>1,800 sq ft</dd></div><div><dt>Garage</dt><dd>250 sq ft</dd></div><div><dt>Covered porch</dt><dd>100 sq ft</dd></div><div><dt>Covered outdoor living, upper</dt><dd>150 sq ft</dd></div><div class="total"><dt>Total under roof</dt><dd>2,200 sq ft</dd></div></dl></div><div class="copy"><h3>Build details</h3><dl class="table"><div><dt>Bedrooms</dt><dd>3</dd></div><div><dt>Bathrooms</dt><dd>2</dd></div><div><dt>Overall dimensions</dt><dd>40' W x 52' D</dd></div><div><dt>Ceiling height, first floor</dt><dd>10'</dd></div><div><dt>Ceiling height, second floor</dt><dd>9'</dd></div><div><dt>Roof pitch</dt><dd>1/4" per foot (flat slope)</dd></div></dl></div></div></section>
+  <section class="sec rooms" aria-labelledby="rooms-h">
+    <p class="eyebrow">The film</p>
+    <h2 id="rooms-h">Rooms in the film</h2>
+    <p class="soft">Select a room to jump to it.</p>
+    <ol id="chapters"></ol>
+  </section>
+  <section class="cta">
+    <div class="copy"><h2>Want to walk through this plan with us?</h2><p class="soft">Book a 30-minute consult and we will go over the layout, the options and what it takes to build it.</p></div>
+    <a class="btn" href="../../book.html">Book a 30-min consult</a>
+  </section>
+</main>
+<footer><div class="foot-in">
+  <span>&copy; 2026 Omni Design and Build &middot; Austin, TX</span>
+  <a class="by" href="https://www.lpa360.com/"><span>Brought to you by</span><img src="lpa360-logo.png" width="46" height="46" alt="LPA360: Digital, AI, Channel"></a>
+</div></footer>
+<script>
+  var chapters = [["Exterior",0],["Foyer",4],["Great Room",8],["Pantry",20],["Dining",24],["Covered Outdoor Living",28],["Master Bedroom",32],["Master Bath",36],["Walk-In Closet",40],["Garage",52],["Bedroom 3",56],["Bath 2",60],["Bedroom 2",64]];
+  var video = document.getElementById("tour"), film = document.getElementById("film"), list = document.getElementById("chapters");
+  function start(at) {
+    film.classList.add("playing"); video.controls = true;
+    if (typeof at === "number") { try { video.currentTime = at; } catch (e) {} }
+    var p = video.play(); if (p && p.catch) p.catch(function () {});
+  }
+  document.getElementById("play").addEventListener("click", function () { start(); });
+  function fmt(s) { return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+  chapters.forEach(function (c, i) {
+    var li = document.createElement("li"), b = document.createElement("button");
+    b.type = "button"; b.id = "ch-" + i;
+    var a = document.createElement("span"), t = document.createElement("span");
+    a.textContent = c[0]; t.className = "t"; t.textContent = fmt(c[1]);
+    b.appendChild(a); b.appendChild(t);
+    b.addEventListener("click", function () { start(c[1]); film.scrollIntoView({ behavior: "smooth", block: "center" }); });
+    li.appendChild(b); list.appendChild(li);
+  });
+  video.addEventListener("timeupdate", function () {
+    var t = video.currentTime, on = 0;
+    for (var i = 0; i < chapters.length; i++) if (t >= chapters[i][1]) on = i;
+    for (var j = 0; j < chapters.length; j++) document.getElementById("ch-" + j).classList.toggle("on", j === on);
+  });
+</script>
+</body>
+</html>
